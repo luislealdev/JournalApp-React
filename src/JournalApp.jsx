@@ -1,7 +1,9 @@
+import { AppRoutes } from "./routes/AppRoutes";
+
 export const JournalApp = () => {
   return (
     <>
-        <h1>JournalApp</h1>
+        <AppRoutes/>
     </>
   )
 }
