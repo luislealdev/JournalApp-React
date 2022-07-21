@@ -5,17 +5,32 @@ import { AuthLayout } from "../layout/AuthLayout";
 import { useForm } from "../../hooks/useForm";
 
 export const RegisterPage = () => {
-
-  const {email, password, displayName, formState, onInputChange} = useForm({
-    email:'luisrrleal@gmail.com',
-    password:'123456',
-    displayName: 'Luis Leal'
+  const {
+    email,
+    password,
+    displayName,
+    formState,
+    onInputChange,
+    isFormValid,
+    validEmail,
+    validPassword,
+    validDisplayName,
+  } = useForm({
+    email: "luisrrleal@gmail.com",
+    password: "123456",
+    displayName: "Luis Leal",
   });
+
+  const formValidation = {
+    email: [(value) => value.includes("@"), "Please enter a valid email"],
+    password: [(value) => value.length <= 6, "Please enter a valid password"],
+    displayName: [(value) => value.length < 1, "Please enter a valid username"],
+  };
 
   const onSubmit = (event) => {
     event.preventDefault();
     console.log(formState);
-  }
+  };
 
   return (
     <AuthLayout title="Register">
