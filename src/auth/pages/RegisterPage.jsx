@@ -39,8 +39,7 @@ export const RegisterPage = () => {
     if (!isFormValid) return;
     setFormSubmited(true);
 
-    const result = await dispatch(startCreatingNewUserWithEmailPassword(formState));
-    console.log(result);
+    const result = dispatch(startCreatingNewUserWithEmailPassword(formState));
   };
 
   return (
