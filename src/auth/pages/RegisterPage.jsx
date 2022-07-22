@@ -3,10 +3,12 @@ import { Button, Grid, Link, TextField, Typography } from "@mui/material";
 import { AuthLayout } from "../layout/AuthLayout";
 import { useForm } from "../../hooks/useForm";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { startCreatingNewUserWithEmailPassword } from "../../store/auth/thunks";
 
 export const RegisterPage = () => {
-
   const [formSubmited, setFormSubmited] = useState(false);
+  const dispatch = useDispatch();
 
   const initialForm = {
     email: "luisrrleal@gmail.com",
@@ -32,9 +34,13 @@ export const RegisterPage = () => {
     displayNameValid,
   } = useForm(initialForm, formValidations);
 
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
+    if (!isFormValid) return;
     setFormSubmited(true);
+
+    const result = await dispatch(startCreatingNewUserWithEmailPassword(formState));
+    console.log(result);
   };
 
   return (
@@ -51,7 +57,7 @@ export const RegisterPage = () => {
               value={displayName}
               onChange={onInputChange}
               error={!!displayNameValid && formSubmited}
-              helperText={displayNameValid }
+              helperText={displayNameValid}
             />
           </Grid>
 
@@ -65,7 +71,7 @@ export const RegisterPage = () => {
               value={email}
               onChange={onInputChange}
               error={!!emailValid && formSubmited}
-              helperText={emailValid }
+              helperText={emailValid}
             />
           </Grid>
 
@@ -79,7 +85,7 @@ export const RegisterPage = () => {
               value={password}
               onChange={onInputChange}
               error={!!passwordValid && formSubmited}
-              helperText={passwordValid }
+              helperText={passwordValid}
             />
           </Grid>
 
