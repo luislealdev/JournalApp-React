@@ -1,8 +1,17 @@
 import { Link as RouterLink } from "react-router-dom";
 import { AppBar, Grid, IconButton, Toolbar, Typography } from "@mui/material";
 import { LogoutOutlined, MenuOutlined } from "@mui/icons-material";
+import { useDispatch } from "react-redux";
+import { logout } from "../../store/auth/authSlice";
+import { startLogoutFirebase } from "../../store/auth";
 
 export const NavBar = ({ drawerWidth = 240 }) => {
+  const dispatch = useDispatch();
+
+  const onLogout = () => {
+    return dispatch(startLogoutFirebase());
+  }
+
   return (
     <AppBar
       position="fixed"
@@ -31,7 +40,7 @@ export const NavBar = ({ drawerWidth = 240 }) => {
             JournalApp{" "}
           </Typography>
 
-          <IconButton color="error" component={RouterLink} to="/auth/login">
+          <IconButton color="error" onClick={onLogout}>
             <LogoutOutlined />
           </IconButton>
         </Grid>

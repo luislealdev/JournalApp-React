@@ -21,9 +21,9 @@ export const RegisterPage = () => {
   const isCheckingAuth = useMemo(() => status === "checking", [status]);
 
   const initialForm = {
-    email: "luisrrleal@gmail.com",
-    password: "123456",
-    displayName: "Luis Leal",
+    email: "",
+    password: "",
+    displayName: "",
   };
 
   const formValidations = {
