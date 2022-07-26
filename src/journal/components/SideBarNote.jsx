@@ -14,11 +14,11 @@ export const SideBarNote = ({ title, body, id, date, imagesUrls }) => {
 
   const newTitle = useMemo(() => {
     return title.length > 17 ? title.substring(0, 17) + "..." : title;
-  }, title);
+  }, [title]);
 
   const newBody = useMemo(() => {
     return body.length > 30 ? body.substring(0, 30) + "..." : body;
-  }, body)
+  }, [body])
 
   const dispatch = useDispatch();
 
