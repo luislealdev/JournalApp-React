@@ -1,11 +1,13 @@
 import { SaveOutlined } from "@mui/icons-material";
 import { Button, Grid, TextField, Typography } from "@mui/material";
-import { useMemo } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "../../hooks";
+import { setActiveNote, startSavingNote } from "../../store/journal";
 import { ImageGallery } from "../components";
 
 export const NoteView = () => {
+  const dispatch = useDispatch();
   const { active: note } = useSelector((state) => state.journal);
 
   const { title, body, date, onInputChange, formState } = useForm(note);
@@ -14,6 +16,14 @@ export const NoteView = () => {
     const newDate = new Date(date);
     return newDate.toUTCString();
   }, [date]);
+
+  useEffect(() => {
+    dispatch(setActiveNote(formState));
+  }, [formState]);
+
+  const onSaveNote = () => {
+    dispatch(startSavingNote());
+  };
 
   return (
     <Grid
@@ -29,7 +39,7 @@ export const NoteView = () => {
         </Typography>
       </Grid>
       <Grid item>
-        <Button color="primary" sx={{ padding: 2 }}>
+        <Button color="primary" sx={{ padding: 2 }} onClick={onSaveNote}>
           <SaveOutlined sx={{ fontSize: 30, mr: 1 }} />
           Guardar
         </Button>
@@ -43,7 +53,7 @@ export const NoteView = () => {
           placeholder="Ingrese un título"
           label="Título"
           sx={{ border: "none", mb: 1 }}
-          name={title}
+          name="title"
           value={title}
           onChange={onInputChange}
         />
@@ -55,7 +65,7 @@ export const NoteView = () => {
           multiline
           placeholder="¿Qué sucedió en el día de hoy?"
           minRows={5}
-          name={body}
+          name="body"
           value={body}
           onChange={onInputChange}
         />
