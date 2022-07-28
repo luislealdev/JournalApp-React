@@ -10,8 +10,10 @@ export const fileUpload = async(file) => {
             body: formData
         })
 
-        console.log(resp);
         if(!resp.ok) throw new Error("No se pudo guardar la imagen");
+        const cloudResp = await resp.json();
+        return cloudResp.secure_url;
+        
     } catch (error) {
         console.log(error);
         throw new Error(error.message)
