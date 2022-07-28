@@ -7,7 +7,7 @@ export const journalSlice = createSlice({
     savedMessage: "",
     notes: [],
     active: null,
-    imagesUrls:[]
+    imagesUrls: [],
 
     //ASÍ LUCIRÍA EL ACTIVE
     //    active: {
@@ -28,21 +28,24 @@ export const journalSlice = createSlice({
     },
     setActiveNote: (state, action) => {
       state.active = action.payload;
+      state.savedMessage = "";
     },
     setNotes: (state, action) => {
       state.notes = action.payload;
     },
     setSaving: (state, action) => {
       state.isSaving = true;
+      state.savedMessage = "";
     },
     updatedNote: (state, action) => {
       state.isSaving = false;
-      state.notes = state.notes.map(note=>{
-        if(note.id === action.payload.id){
+      state.notes = state.notes.map((note) => {
+        if (note.id === action.payload.id) {
           return action.payload;
         }
         return note;
-      })
+      });
+      state.savedMessage = `"${action.payload.title}" saved correctly`;
     },
     deleteNoteById: (state, action) => {},
   },
