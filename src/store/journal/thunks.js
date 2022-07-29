@@ -73,3 +73,4 @@ export const startUploadingImage = (files) => {
     dispatch(setPhotosToActiveNote(photosUrls));
   };
 };
+
