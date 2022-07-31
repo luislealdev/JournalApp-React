@@ -13,18 +13,18 @@ import { useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { startCreatingNewUserWithEmailPassword } from "../../store/auth/thunks";
 
+const initialForm = {
+  email: "",
+  password: "",
+  displayName: "",
+};
+
 export const RegisterPage = () => {
   const [formSubmited, setFormSubmited] = useState(false);
   const dispatch = useDispatch();
 
   const { status, errorMessage } = useSelector((state) => state.auth);
   const isCheckingAuth = useMemo(() => status === "checking", [status]);
-
-  const initialForm = {
-    email: "",
-    password: "",
-    displayName: "",
-  };
 
   const formValidations = {
     email: [(value) => value.includes("@"), "Please enter a valid email"],
